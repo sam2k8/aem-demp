@@ -1,0 +1,16 @@
+<div data-sly-use.model="com.aem.demo.core.models.DownloadPdf">
+    <div data-sly-list.item="${model.pdfList}" data-sly-unwrap>
+        <ul>
+            <li> File Name : ${item.fileName}</li>
+            <li> File Size : ${item.fileSize}</li>
+            <ul data-sly-list.tag="${item.tags}"> Tags :
+                <li>${tag}</li>
+            </ul>
+        <li><a data-sly-test="${item.downloadUrl && item.fileName}" class="cmp-download__action" href="${item.downloadUrl}">
+            <span class="cmp-download__action-text">${item.fileName}</span>
+        </a> </li>
+        </ul>
+    </div>
+
+</div>
+
