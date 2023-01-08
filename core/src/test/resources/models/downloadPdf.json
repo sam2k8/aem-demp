@@ -1,0 +1,8 @@
+{
+  "pdfTag": [
+    "aem-demo:pdf-tag-1",
+    "aem-demo:pdf-tag-2",
+    "aem-demo:pdf-tag-3"
+  ],
+  "pdfPath": "/content/dam/aem-demo"
+}

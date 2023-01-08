@@ -41,7 +41,7 @@ public class PdfDetails {
     }
 
     public Long getFileSize() {
-        return fileSize;
+        return fileSize/1024;
     }
 
     public void setFileSize(Long fileSize) {

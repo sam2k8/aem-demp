@@ -31,13 +31,16 @@ public class DownloadPdfImpl implements DownloadPdf{
     @Default(values = "/content/dam/aem-demo")
     private String pdfPath;
 
+    @ValueMapValue(name = "pdfTag")
+    String[] pdfTag;
+
     private List<PdfDetails> pdfDetailsList;
     @Inject
     private DownloadPdfService downloadPdfService;
 
     @PostConstruct
     protected void init() throws RepositoryException {
-        pdfDetailsList=downloadPdfService.getPdfFiles(pdfPath);
+        pdfDetailsList=downloadPdfService.getPdfFiles(pdfPath,pdfTag);
     }
 
     @Override

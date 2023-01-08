@@ -45,17 +45,25 @@ public class DownloadPdfService {
 
 
 
-        public List<PdfDetails> getPdfFiles(String assetPath) throws RepositoryException {
+        public List<PdfDetails> getPdfFiles(String assetPath,String[] pdfTags) throws RepositoryException {
 
                 ResourceResolver resourceResolver=resourceResolverService.getResourceResolver();
                 List<PdfDetails> pdfDetailsList=new ArrayList<>();
-                if (resourceResolver != null) {
+                if (null!=assetPath && !assetPath.isEmpty() && resourceResolver != null) {
                         Map<String, String> parameterMap = new HashMap<>();
                         parameterMap.put("type", "dam:Asset");
                         parameterMap.put("path", assetPath);
                         parameterMap.put("1_property","jcr:content/metadata/dc:format");
                         parameterMap.put("1_property.value","application/pdf");
-                       // parameterMap.put("p.propertiese","jcr:content/metadata/dc:format jcr:content/metadata/dam:size jcr:content/metadata/cq:tags");
+                        if( pdfTags!=null && pdfTags.length>0){
+                                for (int i = 1; i <=pdfTags.length ; i++) {
+                                        parameterMap.put("group."+i+"_property","jcr:content/metadata/cq:tags");
+                                        parameterMap.put("group."+i+"_property.value",pdfTags[i-1]);
+                                        if(i<pdfTags.length){
+                                                parameterMap.put("group.p.or","true");
+                                        }
+                                }
+                        }
                         parameterMap.put("p.limit", "-1");
 
                         Session session = resourceResolver.adaptTo(Session.class);

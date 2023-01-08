@@ -27,6 +27,14 @@
                                     fieldLabel="Asset Path"
                                     name="./pdfPath"
                                     rootPath="/content"/>
+                            <pdfTag
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                                    allowBulkEdit="{Boolean}true"
+                                    fieldLabel="Asset Product"
+                                    name="./pdfTag"
+                                    multiple="{Boolean}true"
+                                    rootPath="/content/cq:tags"/>
                         </items>
 
 

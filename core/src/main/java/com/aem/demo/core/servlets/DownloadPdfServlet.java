@@ -36,12 +36,12 @@ public class DownloadPdfServlet extends SlingAllMethodsServlet {
         String path="/content/dam/aem-demo";
         String apiResponse= "test";
         ObjectMapper mapper=new ObjectMapper();
-        try {
-            List<PdfDetails> pdfDetailsList=downloadPdfService.getPdfFiles(path);
-            apiResponse=mapper.writeValueAsString(pdfDetailsList);
-        } catch (RepositoryException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            List<PdfDetails> pdfDetailsList=downloadPdfService.getPdfFiles(path);
+//            apiResponse=mapper.writeValueAsString(pdfDetailsList);
+//        } catch (RepositoryException e) {
+//            e.printStackTrace();
+//        }
         response.setContentType("application/json");
         response.getWriter().write(apiResponse);
 

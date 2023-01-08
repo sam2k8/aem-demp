@@ -1,8 +1,10 @@
 <div data-sly-use.model="com.aem.demo.core.models.DownloadPdf">
+    <h1>Pdf files to download</h1>
+
     <div data-sly-list.item="${model.pdfList}" data-sly-unwrap>
         <ul>
             <li> File Name : ${item.fileName}</li>
-            <li> File Size : ${item.fileSize}</li>
+            <li> File Size : ${item.fileSize} KB</li>
             <ul data-sly-list.tag="${item.tags}"> Tags :
                 <li>${tag}</li>
             </ul>
