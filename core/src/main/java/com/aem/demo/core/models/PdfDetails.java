@@ -6,7 +6,9 @@ import org.apache.sling.models.annotations.Optional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.List;
+
 @Model(adaptables = Resource.class)
 public class PdfDetails {
     @Inject
@@ -41,7 +43,7 @@ public class PdfDetails {
     }
 
     public Long getFileSize() {
-        return fileSize/1024;
+        return fileSize / 1024;
     }
 
     public void setFileSize(Long fileSize) {
@@ -49,7 +51,11 @@ public class PdfDetails {
     }
 
     public List<String> getTags() {
-        return tags;
+        List<String> pdfTags = new ArrayList<>();
+        for (String tag : tags) {
+            pdfTags.add(tag.split(":")[1]);
+        }
+        return pdfTags;
     }
 
     public void setTags(List<String> tags) {
