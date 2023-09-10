@@ -1,4 +1,5 @@
 package com.aem.demo.core.service;
+
 import com.adobe.cq.wcm.core.components.commons.link.Link;
 import com.adobe.cq.wcm.core.components.internal.servlets.DownloadServlet;
 import com.aem.demo.core.commons.link.LinkManager;
@@ -44,39 +45,39 @@ public class DownloadPdfService {
         protected static final Logger log = LoggerFactory.getLogger(DownloadPdfService.class);
 
 
+        public List<PdfDetails> getPdfFiles(String assetPath, String[] pdfTags) throws RepositoryException {
 
-        public List<PdfDetails> getPdfFiles(String assetPath,String[] pdfTags) throws RepositoryException {
-
-                ResourceResolver resourceResolver=resourceResolverService.getResourceResolver();
-                List<PdfDetails> pdfDetailsList=new ArrayList<>();
-                if (null!=assetPath && !assetPath.isEmpty() && resourceResolver != null) {
+                ResourceResolver resourceResolver = resourceResolverService.getResourceResolver();
+                List<PdfDetails> pdfDetailsList = new ArrayList<>();
+                if (null != assetPath && !assetPath.isEmpty() && resourceResolver != null) {
                         Map<String, String> parameterMap = new HashMap<>();
                         parameterMap.put("type", "dam:Asset");
                         parameterMap.put("path", assetPath);
-                        parameterMap.put("1_property","jcr:content/metadata/dc:format");
-                        parameterMap.put("1_property.value","application/pdf");
-                        if( pdfTags!=null && pdfTags.length>0){
-                                for (int i = 1; i <=pdfTags.length ; i++) {
-                                        parameterMap.put("group."+i+"_property","jcr:content/metadata/cq:tags");
-                                        parameterMap.put("group."+i+"_property.value",pdfTags[i-1]);
-                                        if(i<pdfTags.length){
-                                                parameterMap.put("group.p.or","true");
+                        parameterMap.put("1_property", "jcr:content/metadata/dc:format");
+                        parameterMap.put("1_property.value", "application/pdf");
+                        if (pdfTags != null && pdfTags.length > 0) {
+                                for (int i = 1; i <= pdfTags.length; i++) {
+                                        parameterMap.put("group." + i + "_property", "jcr:content/metadata/cq:tags");
+                                        parameterMap.put("group." + i + "_property.value", pdfTags[i - 1]);
+                                        if (i < pdfTags.length) {
+                                                parameterMap.put("group.p.or", "true");
                                         }
                                 }
                         }
                         parameterMap.put("p.limit", "-1");
 
+
                         Session session = resourceResolver.adaptTo(Session.class);
-                       // logger.info("Create Session Completed {}", session);
+                        // logger.info("Create Session Completed {}", session);
                         Query query = queryBuilder.createQuery(PredicateGroup.create(parameterMap), session);
-                        List<Hit> result=query.getResult().getHits();
-                        for (Hit hit:result) {
+                        List<Hit> result = query.getResult().getHits();
+                        for (Hit hit : result) {
                                 Resource resource = hit.getResource();
-                                PdfDetails pdfDetails=null;
-                                if(resource!=null){
-                                         pdfDetails = resource.adaptTo(PdfDetails.class);
-                                         pdfDetails.setFilePath(hit.getPath());
-                                         pdfDetails.setDownloadUrl(getDownloadUrl(hit.getPath()));
+                                PdfDetails pdfDetails = null;
+                                if (resource != null) {
+                                        pdfDetails = resource.adaptTo(PdfDetails.class);
+                                        pdfDetails.setFilePath(hit.getPath());
+                                        pdfDetails.setDownloadUrl(getDownloadUrl(hit.getPath()));
 //                                         if (getDownloadUrl(resource)!=null){
 //                                                // pdfDetails.setDownloadUrl(initAssetDownload(hit.getPath()).getURL());
 //                                         }
